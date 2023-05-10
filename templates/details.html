@@ -5,13 +5,26 @@
 {% endblock %}
 
 {% block content %} 
+<div class="container">
 <img src="{{user.image_url}}" alt="">
 <h2>{{user.first_name}} {{user.last_name}}</h2>
 <form action="/users/{{user.id}}/edit"> 
-    <Button>Edit</Button>
+    <Button class="btn btn-primary btn-sm" >Edit</Button>
 </form>
 <form action="/users/{{user.id}}/delete">
-    <Button formmethod="POST">Delete</Button>
+    <Button class="btn btn-danger btn-sm" formmethod="POST">Delete</Button>
 </form>
-
+<h2 class="mt-4">Posts</h2>
+<ul>
+    {% for post in user.posts %}
+    <li>
+      <a href="/posts/{{ post.id}}">{{ post.title }}</a>
+      <small>{{ post.friendly_date }}</small>
+    </li>
+    {% endfor %}
+  </ul>
+<form  action="/users/{{user.id}}/posts/new"> 
+    <Button class="btn btn-primary btn-sm">Add Post</Button>
+</form>    
+</div>
 {% endblock %}
